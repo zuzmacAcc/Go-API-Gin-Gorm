@@ -1,21 +1,24 @@
 package main
 
 import (
+	"log"
+
 	"github.com/gin-gonic/gin"
+	"github.com/zuzmacAcc/Go-API-Gin-Gorm/controllers"
 	"github.com/zuzmacAcc/Go-API-Gin-Gorm/initializers"
 )
 
 func init() {
+	log.Println("Initializing environment variables and database connection")
 	initializers.LoadEnvVariables()
+	initializers.ConnectToDB()
 }
 
 func main() {
-
+	log.Println("Starting application")
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.POST("/posts", controllers.CreatePost)
+	r.GET("/posts", controllers.GetPosts)
+	r.GET("/post/:id", controllers.GetPost)
+	r.Run()
 }
