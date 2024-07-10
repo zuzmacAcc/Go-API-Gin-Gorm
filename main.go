@@ -1,22 +1,15 @@
 package main
 
 import (
-	"log"
-	
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"github.com/zuzmacAcc/Go-API-Gin-Gorm/initializers"
 )
 
 func init() {
-  err := godotenv.Load()
-  if err != nil {
-    log.Fatal("Error loading .env file")
-  }
+	initializers.LoadEnvVariables()
 }
 
-
 func main() {
-
 
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
